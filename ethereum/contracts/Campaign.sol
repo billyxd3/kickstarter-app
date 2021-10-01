@@ -31,7 +31,6 @@ contract Campaign {
     uint256 public minimunContribution;
     mapping(address => bool) public approvers;
     uint256 public approversCount;
-    
 
     modifier restricted() {
         require(msg.sender == manager);
@@ -76,7 +75,7 @@ contract Campaign {
     function finalizeRequest(uint256 index) public payable restricted {
         Request storage request = requests[index];
 
-        require(approversCount > (approversCount / 2));
+        require(requests[index].approvalCount > (approversCount / 2));
         require(!request.complete);
 
         request.recipient.transfer(request.value);
